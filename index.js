@@ -1,23 +1,16 @@
 import { buchobjekt } from "./objektkonstruktor.js";
+import { steuerung } from "./steuerung.js";
 
-let bibliotek = [];
+let bibliotek = []
 
-document.addEventListener("DOMContentLoaded", () => {
-    const autor = "J.K. Rowling";
-    const titel = "Der Hobbit";
-    const seitenzahl = 320;
-    const id = crypto.randomUUID();
-    const buch = new buchobjekt(autor, titel, seitenzahl, id);
-    bibliotek.push(buch);
-    console.log(bibliotek);
-});
-document.addEventListener("DOMContentLoaded", () => {
-    const autor = "Klaus";
-    const titel = "Harry Potter";
-    const seitenzahl = 504;
-    const id = crypto.randomUUID();
-    const buch = new buchobjekt(autor, titel, seitenzahl, id);
-    bibliotek.push(buch);
-    console.log(bibliotek);
-});
+document.addEventListener("keydown", (event)=> {
+    if (event.key != "n") return;
+    steuerung.buchHinzufügen();
+}); 
 
+document.addEventListener("keydown", (event)=> {
+    if (event.key != "l") return;
+    steuerung.buchEntfernen(prompt("ID Eingeben"));
+}); 
+
+export { bibliotek }
