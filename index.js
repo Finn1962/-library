@@ -1,16 +1,34 @@
-import { buchobjekt } from "./objektkonstruktor.js";
-import { steuerung } from "./steuerung.js";
+import { steuerungBücher } from "./steuerung/steuerungBücher.js";
+import { steuerungEingabefläche } from "./steuerung/steuerungEingabefläche.js";
 
-let bibliotek = []
+//Eingabefläche für neues Buch öffen
+document.getElementById("hinzufügenButton").addEventListener("click",()=>{
+    steuerungEingabefläche.eingabecontainerAnzeigen("", "", 1, false);
+});
 
-document.addEventListener("keydown", (event)=> {
-    if (event.key != "n") return;
-    steuerung.buchHinzufügen();
+//Button um um Eingabe zu bestätigen
+document.getElementById("buttonErstellen").addEventListener("click",()=> {
+    if (!(document.getElementById("autor").value == "" || document.getElementById("titel").value == "" || document.getElementById("seiten").value == "")) {
+        steuerungBücher.buchHinzufügen();
+        steuerungEingabefläche.eingabecontainerVerbergen();
+    } else {
+        alert("Alle Felder ausfüllen");
+    };
 }); 
 
-document.addEventListener("keydown", (event)=> {
-    if (event.key != "l") return;
-    steuerung.buchEntfernen(prompt("ID Eingeben"));
-}); 
+//Button um Eingabe abzubrechen
+document.getElementById("buttonAbbrechen").addEventListener("click",()=>{
+    steuerungEingabefläche.eingabecontainerVerbergen();
+});
 
-export { bibliotek }
+//Buch Bearbeiten
+document.addEventListener("click",(event)=> {
+    const elementUnterMaus = event.target; 
+    steuerungBücher.buchBearbeiten(elementUnterMaus);
+});
+
+//Buch Löschen
+document.addEventListener("click",(event)=> {
+    const elementUnterMaus = event.target; 
+    steuerungBücher.buchEntfernen(elementUnterMaus);
+});
