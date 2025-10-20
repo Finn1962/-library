@@ -14,10 +14,16 @@ document.getElementById("buttonErstellen").addEventListener("click",()=> {
     } else {
         alert("Alle Felder ausfüllen");
     };
-}); 
+});
 
 //Button um Eingabe abzubrechen
 document.getElementById("buttonAbbrechen").addEventListener("click",()=>{
+    steuerungEingabefläche.eingabecontainerVerbergen();
+});
+
+//Button änderungen übernehmen
+document.getElementById("buttonÄnderungen").addEventListener("click",()=>{
+    steuerungBücher.änderungenÜbernehmen();
     steuerungEingabefläche.eingabecontainerVerbergen();
 });
 

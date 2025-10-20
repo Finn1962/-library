@@ -21,6 +21,11 @@ body {
     margin-bottom: 5px;
 }
 
+#buttonÄnderungen{
+    width: 149px;
+    display: none;
+}
+
 .eingabeContainer>div{
     margin-top: 10px;
 }
@@ -44,24 +49,11 @@ body>img{
     flex-wrap: wrap;
 }
 
-@keyframes growCenter {
-  from {
-    transform: scale(0);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
 .buch {
     border: solid black 1px;
     width: 200px;
     min-height: 250px;
     padding: 10px;
     margin: 10px;
-    transform-origin: center;
-    animation: growCenter 0.3s ease-out forwards;
 }
 

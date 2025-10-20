@@ -5,6 +5,9 @@ import { steuerungEingabefläche } from "./steuerungEingabefläche.js";
 
 class steuerungBücher {  
     
+    static index = null;
+    static indexÄnderung = null;
+
     static buchHinzufügen() {
         const autor = document.getElementById("autor").value;
         const titel = document.getElementById("titel").value;
@@ -21,8 +24,8 @@ class steuerungBücher {
         const classeVonElement = elementUnterMaus.className;
         const gesuchtesbuch = bibliotek.find(object => object.id == idVoneElement);
         if (gesuchtesbuch && classeVonElement == "buttonLöschen") {
-            const indexBuch = bibliotek.indexOf(gesuchtesbuch);
-            bibliotek.splice(indexBuch, 1);
+            this.index = bibliotek.indexOf(gesuchtesbuch);
+            bibliotek.splice(this.index, 1);
             steuerungBibliotek.bibliotekAktualisieren();
         }
     }
@@ -31,14 +34,23 @@ class steuerungBücher {
         const idVoneElement = elementUnterMaus.id;
         const classeVonElement = elementUnterMaus.className;
         const gesuchtesbuch = bibliotek.find(object => object.id == idVoneElement);
-        const indexBuch = bibliotek.indexOf(gesuchtesbuch);
+        this.index = bibliotek.indexOf(gesuchtesbuch);
         if (gesuchtesbuch && classeVonElement == "buttonBearbeiten") {
-            steuerungEingabefläche.eingabecontainerAnzeigen(bibliotek[indexBuch].autor, bibliotek[indexBuch].titel, bibliotek[indexBuch].seitenzahl, bibliotek[indexBuch].gelesen);
-            document.getElementById("buttonAbbrechen").style.display = "none"; 
-            document.getElementById("buttonErstellen").style.width = "149px";
-            document.getElementById("buttonErstellen").textContent = "Übernehmen";
-            bibliotek.splice(indexBuch, 1);
+            this.indexÄnderung = this.index;
+            steuerungEingabefläche.eingabecontainerAnzeigen(bibliotek[this.index].autor, bibliotek[this.index].titel, bibliotek[this.index].seitenzahl, bibliotek[this.index].gelesen);
+            document.getElementById("buttonErstellen").style.display = "none"; 
+            document.getElementById("buttonAbbrechen").style.display = "none";
+            document.getElementById("buttonÄnderungen").style.display = "inline";
         }
+    }
+
+    static änderungenÜbernehmen() {
+        console.log(this.indexÄnderung);
+        bibliotek[this.indexÄnderung].autor = document.getElementById("autor").value;
+        bibliotek[this.indexÄnderung].titel = document.getElementById("titel").value;
+        bibliotek[this.indexÄnderung].seitenzahl = document.getElementById("seiten").value;
+        bibliotek[this.indexÄnderung].gelesen = document.getElementById("checkbox").checked;
+        steuerungBibliotek.bibliotekAktualisieren();
     }
 }
 
